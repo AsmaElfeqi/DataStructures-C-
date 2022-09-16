@@ -7,9 +7,10 @@ class stack{
         node* next;
         t item ;
     };
+    node* top ,curr;
 public:
     stack(){
-        node* top = NULL;
+         top = NULL;
     }
     void push (t element)
     {
@@ -18,18 +19,51 @@ public:
         nodeptr->next = top;
         top = nodeptr;
     }
+    void pop(t& element)
+    {  
+        if(isEmpty()) cout << "stack empty on pop ";
+        node* temp = new node;
+        temp = top;
+        element = top->item;
+        top = top->next;
+        temp->next = NULL;
+        delete temp;
+        
+        
+    }
+    bool isEmpty(){
+        return top == NULL;
+    }
+    
+    void getTop(t& stackitem)
+    {
+        if(isEmpty()) cout << "stack empty on pop ";
+        stackitem = top->item;
+    }
+    
+    void print()
+    {
+        node* curr = top;
+        while(curr != NULL)
+        {
+            cout << curr->item  << endl;
+            curr = curr->next;
+            
+        }
+    }
 };
+
 
 int main()
 {
-    stack <int> s;
-    int ele  = 0;
-    s.push(5);
-    s.push(15);
-    s.push(20);
-    s.pop(ele);
-    s.getTop(ele);
-    cout << ele << endl;
-    s.print();
-    return 0;
+      stack <int> s;
+      int element  = 0;
+      s.push(5);
+      s.push(15);
+      s.push(20);
+      s.pop(element);
+      s.getTop(element);
+      cout << element << endl;
+      s.print();
+      return 0;
 }
