@@ -1,0 +1,42 @@
+
+#include <string>
+#include<iostream>
+#include<stack>
+using namespace std;
+bool ISoperand(char op)
+{
+    
+}
+bool ISoperator(char op)
+{
+    
+}
+
+
+void INFIXTOPOSTFIX(string exp)
+{
+    string buffer = "";
+    int len = exp.length();
+    for(int i = 0 ; i < len ; i++)
+    {
+        if(ISoperand(exp[i] ))
+        {
+            
+        }
+        else if(ISoperator(exp[i]))
+        {
+            
+        }
+    }
+}
+
+
+int main() 
+{
+    string exp ,str;
+    cout << "Enter an expression ";
+    getline(cin,exp);
+    str = INFIXTOPOSTFIX(exp);
+    cout << str;
+    return 0;
+}
