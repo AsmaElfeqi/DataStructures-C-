@@ -1,0 +1,41 @@
+#include <iostream>
+#include<stack>
+#include<string>
+using namespace std;
+
+template <class t>
+bool Ispair(t open ,t closed)
+{
+    if(open == '[' && closed == ']') return true;
+    if(open == '{' && closed == '}') return true;
+    if(open == '(' && closed == ')') return true;
+    return false;
+}
+bool ISBALANCED(string expression)
+{   
+    stack<char> s;
+    int len = expression.length();
+    for(int i = 0 ; i < len ; i++)
+    {
+        if(expression[i] == '[' || expression[i] == '{' ||expression[i] == '(')
+        {
+            s.push(expression[i]);
+        }
+    else if(expression[i] == ']' || expression[i] == '}' ||expression[i] == ')')
+    { 
+        if(!s.empty() && Ispair(s.top() ,expression[i]))
+        s.pop();
+    }
+  }
+  return s.empty() ? true:false;
+}
+
+
+int main()
+{  
+    string expression;
+    cout << "Enter Expression";
+    cin>> expression;
+    ISBALANCED( expression)? cout <<"BALANCED " : cout <<"UNBALANCED";
+    return 0;
+}
