@@ -28,7 +28,8 @@ class stack {
     }
     
     void getTop(t& element)
-    {
+    {  
+       if(ISEmpty()) cout <<"stack empty on getTop";
         element = stackarr[top];
     }
     
@@ -46,7 +47,7 @@ class stack {
     
     void print ()
     {
-        for(int i = stackarr.length() ; i >=0 ;i ++)
+        for(int i = top; i >=0 ;i ++)
         {
             cout << stackarr[i] << endl;
         }
