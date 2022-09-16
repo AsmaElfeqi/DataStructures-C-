@@ -1,0 +1,35 @@
+#include<iostream>
+using namespace std;
+template <class t>
+
+class stack{
+    struct node {
+        node* next;
+        t item ;
+    };
+public:
+    stack(){
+        node* top = NULL;
+    }
+    void push (t element)
+    {
+        node* nodeptr = new node;
+        nodeptr->item = element;
+        nodeptr->next = top;
+        top = nodeptr;
+    }
+};
+
+int main()
+{
+    stack <int> s;
+    int ele  = 0;
+    s.push(5);
+    s.push(15);
+    s.push(20);
+    s.pop(ele);
+    s.getTop(ele);
+    cout << ele << endl;
+    s.print();
+    return 0;
+}
