@@ -1,1 +1,68 @@
 
+#include <string>
+#include<iostream>
+#include<stack>
+template <class t>
+const MAX_SIZE = 5;
+
+class stack {
+    int top;
+    t stackarr[MAX_SIZE];
+    stack():top(-1){}
+    public:
+    void push(t element)
+    {
+        if(ISFULL) cout <<"stack full on push";
+        else 
+        {
+            stackarr[++top] = element;
+        }
+    }
+    void pop(t& element)
+    {
+        if(ISEmpty()) cout <<"stack empty on pull";
+        else {
+            element = stackarr[top];
+            top--;
+            }
+    }
+    
+    void getTop(t& element)
+    {
+        element = stackarr[top];
+    }
+    
+    
+    bool ISEmpty()
+    {
+        return top == -1;
+    }
+    
+    
+    bool ISFULL(){
+        
+        retuen top == MAX_SIZE-1;
+    }
+    
+    void print ()
+    {
+        for(int i = stackarr.length() ; i >=0 ;i ++)
+        {
+            cout << stackarr[i] << endl;
+        }
+    }
+    
+}
+int main()
+{
+    stack<char> s;
+    t item ;
+    s.push(5);
+    s.push(10);
+    s.push(15);
+    s.push(20);
+    s.pop(item);
+    s.getTop(item);
+    s.print();
+    return 0;
+}
