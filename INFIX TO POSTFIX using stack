@@ -1,42 +1,104 @@
-
-#include <string>
+//Allowed operators are + - * / 
 #include<iostream>
+#include <string>
 #include<stack>
 using namespace std;
+
 bool ISoperand(char op)
 {
-    
+    if(op >= '0' && op <= '9') return true;
+    if(op >= 'a' && op <= 'z') return true;
+    if(op >= 'A' && op <= 'Z') return true;
+    return false;
 }
+
 bool ISoperator(char op)
-{
-    
+{ 
+    if(op == '+' || op == '-' || op == '*'  || op == '/')return true;
+    return false;
 }
-
-
-void INFIXTOPOSTFIX(string exp)
-{
+//function to get weight of an operator 
+int getoperatorweight(char op)
+{  
+    int weight = -1;
+    switch(op)
+    {
+        case'+':
+       case'-' :
+       weight = 1;
+       case '*':
+       case '/' :
+       weight = 2 ;
+       case '$' :
+       weight  = 3;
+    }
+    return weight;
+}
+ 
+ 
+  bool IShigherprecedence(char op1,char op2)
+  {
+    int  op1weight = getoperatorweight(op1);
+    int  op2weight = getoperatorweight(op2);
+     return op1weight >= op2weight ? true :false;
+  }
+  
+  
+   string INFIXTOPOSTFIX(string exp)
+   {
     string buffer = "";
     int len = exp.length();
+    stack<char>s;
     for(int i = 0 ; i < len ; i++)
     {
         if(ISoperand(exp[i] ))
         {
-            
+            buffer += exp[i];
         }
         else if(ISoperator(exp[i]))
         {
-            
+            while(!s.empty() && s.top()!= '(' && IShigherprecedence(s.top(),exp[i]))
+            {
+                buffer +=s.top();
+                s.pop();
+            }
+            s.push(exp[i]);
         }
+        else if (exp[i] == '(')
+        {
+            s.push(exp[i]);
+        }
+        else if (exp[i] == ')')
+        {
+            while(!s.empty() && s.top()!= '(')
+            {
+                buffer += s.top();
+                s.pop();
+            }
+            s.pop();
+        }
+
+        
     }
+    
+    while(!s.empty())
+    {
+        buffer += s.top();
+        s.pop();
+    }
+    return buffer;
 }
+
 
 
 int main() 
 {
+    
     string exp ,str;
     cout << "Enter an expression ";
     getline(cin,exp);
     str = INFIXTOPOSTFIX(exp);
-    cout << str;
+    cout << str << endl;
     return 0;
+    
 }
