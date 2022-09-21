@@ -6,6 +6,7 @@ class ArrayListType
 {
     public:
     ArrayListType(int size =100);
+    ArrayListType(ArrayListType& otherList); //copy constructor
     ~ArrayListType();
     bool isEmpty();
     bool isFull();
@@ -43,7 +44,16 @@ ArrayListType::ArrayListType(int size){
         assert(list != NULL);
     }
 }
+ArrayListType::ArrayListType(ArrayListType& otherList)
+{
+	maxsize = otherList.maxsize;
+	length = otherList.length;
+	list = new int [maxsize]; 	//create the array
+	assert(list != NULL);	//terminate if unable to allocate memory space
 
+	for(int j = 0; j < length; j++)  //copy otherList
+		list [j] = otherList.list[j];
+}
 
 
 /*void ArrayListType :: ~arrayListType(){
@@ -79,12 +89,93 @@ bool  ArrayListType :: isItemAtequal(int item ,int pos)
     if(pos < 0 || pos >length) return false;
     else return (list[pos] == item);
 }
+   void ArrayListType :: insertAt(int item ,int pos)
+   {    
+       
+       if(isFull()) {cout<< "list is full" <<endl;}
+       else if(pos < 0 || pos >= length){ cout << "out of range ";}
+       else 
+       {  
+            for(int i = length ; i > pos ; i--) list[i] = list[i-1];
+       
+            list[pos] = item;
+            length++;
+       }
+    }
+    void ArrayListType :: insertEnd(int item)
+    {  
+        if(isFull()) cout << "Array is full";
+        else list[length]  = item;
+        length++;
+        
+    }
+    void ArrayListType :: RemoveAt(int pos)
+    {
+        if(pos < 0 || pos >= length) cout <<"wrong position";
+        else 
+        { 
+            for(int i = pos ; i <length ; i++) 
+            {
+                list[pos] = list[pos+1];
+            }
+                            length -- ;
 
+        }
+    }
+    void ArrayListType :: retrieveat(int pos ,int & item){
+        if(pos < 0 || pos >= length) cout <<"wrong position";
+        else item = list[pos];
+
+    }
+    void ArrayListType :: replaceAt(int item ,int loc){
+        if(loc < 0 || loc >= length) cout <<"wrong position";
+        list[loc] = item;
+
+    }
+    void ArrayListType :: clearList(){
+        length = 0;
+    }
+    int ArrayListType  :: seqsearch(int item){
+        for(int i = 0 ; i < length ; i++)
+        {
+            if(list[i] == item) return i;
+        }
+        return -1;
+    }
+    void ArrayListType :: insertNoDuplicate(int item)
+    {
+        if(isFull())cout << "list is full";
+        else {
+            if(seqsearch( item) == -1 ){
+                
+            list[length-1] = item;
+            length ++;
+                
+            }
+            else {cout <<"no duplicates are allowed";}
+        }
+    }
+    void ArrayListType :: remove(int item)
+    {
+        int loc = seqsearch( item) ;
+        
+        if(loc == -1) {cout <<"not found ";}
+        else {
+          RemoveAt(loc);
+        }
+    }
 
 
 
 int main() {
+    
+    ArrayListType lst1;
+	for(int i = 0; i < 20; i++)
+	lst1.insertAt(i, i * i);
 
-
+    lst1.print();
+//ArrayListType l1;
+//for(int i = 0 ; i< 20 ;i++) l1.insertAt(i*i , i);
+//l1.print();
     return 0;
 }
