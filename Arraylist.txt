@@ -1,1 +1,90 @@
 
+#include <iostream>
+#include <cassert>
+using namespace std;
+class ArrayListType
+{
+    public:
+    ArrayListType(int size =100);
+    ~ArrayListType();
+    bool isEmpty();
+    bool isFull();
+    int listSize();
+    int maxListSize();
+    void print();
+    bool isItemAtequal(int item ,int pos);
+    void insertAt(int item ,int pos);
+    void insertEnd(int item);
+    void RemoveAt(int pos);
+    void retrieveat(int pos ,int & item);
+    void replaceAt(int pos ,int loc);
+    void clearList();
+    int seqsearch(int item);
+    void insertNoDuplicate(int item);
+    void remove(int item);
+    private:
+    int* list;
+    int length;
+    int maxsize;
+    
+};
+
+ArrayListType::ArrayListType(int size){
+    if(size < 0 ) 
+    {
+           cout <<"wrong size";
+           size = 100;
+    }
+    else 
+    {
+        maxsize =size;
+        length = 0 ;
+        list = new int[maxsize];
+        assert(list != NULL);
+    }
+}
+
+
+
+/*void ArrayListType :: ~arrayListType(){
+    delete [] list;
+}*/
+
+bool ArrayListType:: isEmpty(){
+    return length == 0;
+}
+
+bool ArrayListType ::isFull()
+{
+    return length == maxsize;
+}
+
+
+int ArrayListType ::listSize()
+{
+    return length;
+}
+
+int ArrayListType :: maxListSize()
+{
+    return maxsize;
+}
+
+void    ArrayListType :: print(){
+    for (int i = 0 ; i < length ;i++) cout << list[i] << endl;
+}
+
+bool  ArrayListType :: isItemAtequal(int item ,int pos)
+{
+    if(pos < 0 || pos >length) return false;
+    else return (list[pos] == item);
+}
+
+
+
+
+int main() {
+
+
+    return 0;
+}
