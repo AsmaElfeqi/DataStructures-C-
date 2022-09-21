@@ -5,9 +5,9 @@ using namespace std;
 class ArrayListType
 {
     public:
-    ArrayListType(int size =100);
-    ArrayListType(ArrayListType& otherList); //copy constructor
-    ~ArrayListType();
+    ArrayListType(int size = 100);
+	ArrayListType(ArrayListType& otherList); //copy constructor	
+	~ArrayListType(); // destructor
     bool isEmpty();
     bool isFull();
     int listSize();
@@ -29,21 +29,22 @@ class ArrayListType
     int maxsize;
     
 };
+ArrayListType::ArrayListType(int size)
+{
+	/* initilize the private members */
+	if(size <= 0)
+	{
+		cout << " Wrong Size " << endl;
+		maxsize = 100;
+	}
+	else
+		maxsize = size;
 
-ArrayListType::ArrayListType(int size){
-    if(size < 0 ) 
-    {
-           cout <<"wrong size";
-           size = 100;
-    }
-    else 
-    {
-        maxsize =size;
-        length = 0 ;
-        list = new int[maxsize];
-        assert(list != NULL);
-    }
+	length = 0;
+	list = new int [maxsize];
+	assert(list != NULL); //terminate if unable to allocate memory space
 }
+
 ArrayListType::ArrayListType(ArrayListType& otherList)
 {
 	maxsize = otherList.maxsize;
@@ -55,10 +56,10 @@ ArrayListType::ArrayListType(ArrayListType& otherList)
 		list [j] = otherList.list[j];
 }
 
-
-/*void ArrayListType :: ~arrayListType(){
-    delete [] list;
-}*/
+ArrayListType::~ArrayListType()
+{
+	delete [] list;
+}
 
 bool ArrayListType:: isEmpty(){
     return length == 0;
@@ -93,7 +94,7 @@ bool  ArrayListType :: isItemAtequal(int item ,int pos)
    {    
        
        if(isFull()) {cout<< "list is full" <<endl;}
-       else if(pos < 0 || pos >= length){ cout << "out of range ";}
+       else if(pos < 0 || pos > length){ cout << "out of range ";}
        else 
        {  
             for(int i = length ; i > pos ; i--) list[i] = list[i-1];
@@ -165,17 +166,11 @@ bool  ArrayListType :: isItemAtequal(int item ,int pos)
         }
     }
 
-
-
 int main() {
     
     ArrayListType lst1;
 	for(int i = 0; i < 20; i++)
-	lst1.insertAt(i, i * i);
-
+	lst1.insertAt(i*i, i);
     lst1.print();
-//ArrayListType l1;
-//for(int i = 0 ; i< 20 ;i++) l1.insertAt(i*i , i);
-//l1.print();
     return 0;
 }
