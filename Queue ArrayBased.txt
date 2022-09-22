@@ -1,1 +1,129 @@
 
+
+#include <iostream>
+#include<cassert>
+using namespace std;
+
+
+
+class QueueArray{
+ 
+    int* arr;
+    int front ,rear;
+    int maxsize,length = 0; 
+    public:
+    
+    
+    QueueArray(int size)
+    {   
+        if(size <= 0) maxsize = 100;
+        else maxsize = size;
+        arr = new int[maxsize];
+        front = 0;rear = maxsize-1;
+    }
+    
+    
+    
+    bool isFull(void){
+        return length == maxsize;
+    }
+    
+    
+    
+    bool isEmpty(void)
+    {
+        return length == 0;
+    }
+    
+    
+    
+    void Enqueue(int item)
+    {
+        if(isFull()) cout << "full queue ";
+        rear = (rear+1) % maxsize;
+        arr[rear] = item;
+        length++;
+    }
+    
+    void Dequeue(void)
+    {
+        
+        if(isEmpty()) cout << "Can not enqu empty queue";
+        else front = (front+1) % maxsize;
+        length--;
+    }
+    
+    void GetFront(int& item)
+    {   
+        assert(!(isEmpty()));
+        cout << "Front Element is ";
+
+        item = arr[front];
+    }
+    
+    void GetRear(int& item)
+    {   
+        assert(!(isEmpty()));
+        cout << "Rear Element is ";
+        item = arr[rear];
+    }
+    
+    void printQueue(void)
+    {  
+        if(!isEmpty())
+       { 
+           cout << "Queue elements are" <<endl;
+        for (int i = front ; i!= rear ; i=(i+1)%maxsize) cout<< arr[i]<<endl;
+        cout << arr[rear];
+        cout <<endl;
+       }
+        else cout << "Empty Queue";
+    }
+    
+    
+    int searchqueue(int item){
+        int pos = -1;
+        if(!isEmpty()){
+            for(int i = front ; i != rear ; i= (i+1)%maxsize){
+            if(arr[i] == item)
+            { 
+                pos =i ;
+                return pos;
+                
+            }
+            if(arr[rear] == item) 
+            pos = rear ;
+        }}
+        else cout << "emptyQueue...";
+        return pos;
+    }
+    
+    
+    	~QueueArray() {
+		delete[]arr;
+	}
+};
+
+
+
+int main() 
+{  
+   int element ,pos ;
+   QueueArray q1(500);
+   q1.Enqueue(10);
+   q1.Enqueue(20);
+   q1.Enqueue(30);
+   q1.Enqueue(40);
+   q1.printQueue();
+   q1.searchqueue(20);
+   q1.Dequeue();
+   q1.printQueue();
+   q1.GetFront(element);
+   cout << element;
+   cout <<endl;
+   pos = q1.searchqueue(20); 
+   if(pos != -1) cout <<"element found at pos " << pos+1 << endl;
+   q1.GetRear(element);
+   cout <<element;
+    return 0;
+}
