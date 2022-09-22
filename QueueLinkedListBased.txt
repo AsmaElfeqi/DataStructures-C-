@@ -115,7 +115,7 @@ public:
         }
 
         }
-        if(!flag) cout << "Element not found..." <<endl;
+        if(flag) cout << "Element not found..." <<endl;
     }
     
     void clearQueue(void)
