@@ -1,1 +1,161 @@
 
+
+#include <iostream>
+#include<cassert>
+using namespace std;
+template <class t>
+
+
+class LinkedQueue{
+ private:
+    struct Node{
+        t item;
+        Node* next;
+    };
+    
+    Node* front ,* rear ,* curr;
+    int length = 0; 
+public:
+    
+    LinkedQueue():front(NULL),rear(NULL),curr(NULL)
+    {   
+    }
+    
+    
+    bool isEmpty(void)
+    {
+        return length == 0;
+    }
+    
+    
+   void Enqueue(t item)
+    {  
+       Node* nodeptr = new Node;
+       nodeptr->item = item;
+       nodeptr->next = NULL;
+
+       if(isEmpty()){
+           front = rear =nodeptr;
+       }
+       else 
+       {
+           rear->next = nodeptr;
+           rear = nodeptr;
+       }
+       length++;
+    }
+    
+    void Dequeue(void)
+    {
+        
+        if(isEmpty()) cout << "Can not enqueue empty queue";
+        curr = front;
+        front = front->next;
+        delete curr;
+        length--;
+    }
+    
+    void GetFront(t& item)
+    {   
+        assert(!(isEmpty()));
+        cout << "Front Element is ";
+
+        item = front->item;
+    }
+    
+    void GetRear(t& item)
+    {   
+        assert(!(isEmpty()));
+        cout << "Rear Element is ";
+        item = rear->item;
+    }
+    
+    void printQueue(void)
+    {  
+       if(!isEmpty())
+       { 
+           cout << "Queue elements are [" << endl;
+           curr = front;
+           while(curr!= NULL)
+           {
+               cout <<curr->item ;
+               curr= curr->next;
+           }
+
+       }
+        else cout << "Empty Queue ...";
+    }
+    
+    
+    void display()
+	{
+		Node*cur = front;
+		cout << "Item in the queue :[ ";
+		while (cur!=NULL)
+		{
+			cout << cur->item<<" ";
+			cur = cur->next;
+		}cout << "]" << endl;
+	}
+    
+    void  searchqueue(t item){
+        curr = front;
+        bool flag = true;
+        if(!isEmpty()){
+           while(curr != NULL){
+            if(curr->item == item)
+            { 
+                
+                cout <<"Item found "  << item << endl;
+                flag = false;
+
+                break;
+            }
+            curr = curr->next;
+        }
+
+        }
+        if(!flag) cout << "Element not found..." <<endl;
+    }
+    
+    void clearQueue(void)
+    {
+        while(front != NULL)
+        {   
+            curr = front;
+            front = front->next;
+            delete curr;
+        }
+        rear = NULL;
+        length = 0;
+    }
+    
+
+};
+
+
+
+int main() 
+{  
+   int element ;
+   LinkedQueue <int>q1;
+   q1.searchqueue(20); 
+
+   q1.Enqueue(10);
+   q1.Enqueue(20);
+   q1.Enqueue(30);
+   q1.Enqueue(40);
+   q1.searchqueue(20); 
+
+   q1.printQueue();
+   q1.Dequeue();
+   q1.printQueue();
+   q1.GetFront(element);
+   cout << element;
+   cout <<endl;
+   q1.searchqueue(20); 
+   
+   q1.GetRear(element);
+   cout <<element;
+    return 0;
+}
